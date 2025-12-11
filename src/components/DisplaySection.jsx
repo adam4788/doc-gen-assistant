@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DisplaySection = ({ generatedContent, isGenerating, setGeneratedImage }) => {
+const DisplaySection = ({ generatedContent, isGenerating, setGeneratedImage, selectedModel }) => {
 
   // generatedContent is now expected to be a data URI string (the image)
 
@@ -26,7 +26,7 @@ const DisplaySection = ({ generatedContent, isGenerating, setGeneratedImage }) =
           <div className="loading-state">
             <div className="spinner"></div>
             <p className="pulsing-text">Analzying Document & Generating Image...</p>
-            <small>Using Gemini 2.5 Flash Image</small>
+            <small>Using {selectedModel || 'Gemini 2.5 Flash Image'}</small>
           </div>
         ) : generatedContent ? (
           <div className="output-wrapper fade-in">
@@ -36,7 +36,7 @@ const DisplaySection = ({ generatedContent, isGenerating, setGeneratedImage }) =
               className="generated-image-result"
             />
             <div className="status-bar">
-              <small>Generated Image via Gemini 2.5</small>
+              <small>Generated Image via {selectedModel || 'Gemini 2.5'}</small>
             </div>
           </div>
         ) : (

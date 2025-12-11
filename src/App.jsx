@@ -92,6 +92,7 @@ function App() {
           <DisplaySection
             generatedContent={generatedContent}
             isGenerating={isGenerating}
+            selectedModel={selectedModel}
             setGeneratedImage={(val) => {
               setGeneratedImage(val);
               if (val === null) setGeneratedContent(''); // Handle reset
