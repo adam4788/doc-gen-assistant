@@ -12,29 +12,36 @@ const DisplaySection = ({ generatedContent, isGenerating, setGeneratedImage }) =
   }, [generatedContent, setGeneratedImage]);
 
   return (
-    <div className="display-section">
+    <div className="display-section fade-in">
       <div className="header">
         <h2>Generated Output</h2>
+        {generatedContent && !isGenerating && (
+          <button onClick={() => setGeneratedImage(null)} className="reset-btn" title="Clear Output">
+            ↺ Reset
+          </button>
+        )}
       </div>
       <div className="content-area">
         {isGenerating ? (
           <div className="loading-state">
             <div className="spinner"></div>
-            <p>Generating Image (Gemini 2.5)...</p>
+            <p className="pulsing-text">Analzying Document & Generating Image...</p>
+            <small>Using Gemini 2.5 Flash Image</small>
           </div>
         ) : generatedContent ? (
-          <div className="output-wrapper">
+          <div className="output-wrapper fade-in">
             <img
               src={generatedContent}
               alt="Generated Document"
               className="generated-image-result"
             />
             <div className="status-bar">
-              <small>Generated Image by Gemini 2.5 Flash Image</small>
+              <small>Generated Image via Gemini 2.5</small>
             </div>
           </div>
         ) : (
           <div className="empty-state">
+            <span style={{ fontSize: '3rem', opacity: 0.3 }}>✨</span>
             <p>Generated image will appear here.</p>
           </div>
         )}
@@ -54,66 +61,37 @@ const DisplaySection = ({ generatedContent, isGenerating, setGeneratedImage }) =
         .header {
           padding: 1rem 1.5rem;
           border-bottom: 1px solid #eee;
-        }
-        .header h2 {
-          margin: 0;
-          font-size: 1.1rem;
-          color: var(--color-text-main);
-        }
-        .content-area {
-          flex: 1;
-          overflow-y: auto;
-          min-height: 300px;
-          background: #f0f2f5;
           display: flex;
+          justify-content: space-between;
           align-items: center;
-          justify-content: center;
         }
-        .output-wrapper {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          position: relative;
+        .reset-btn {
+          background: none;
+          border: 1px solid #ddd;
+          padding: 4px 8px;
+          border-radius: 4px;
+          color: #666;
+          font-size: 0.8rem;
+          transition: all 0.2s;
         }
-        .generated-image-result {
-           max-width: 95%;
-           max-height: 90%;
-           box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-           border-radius: 4px;
+        .reset-btn:hover {
+          background: #f5f5f5;
+          color: #333;
         }
-        .empty-state, .loading-state {
-          flex-direction: column;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--color-text-light);
-          font-style: italic;
-          width: 100%;
-        }
-        .spinner {
-          width: 30px;
-          height: 30px;
-          border: 3px solid var(--color-cream);
-          border-top: 3px solid var(--color-forest-orange);
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-          margin-bottom: 1rem;
+        .pulsing-text {
+          animation: pulse 2s infinite;
+          margin-bottom: 0.5rem;
         }
         .status-bar {
           margin-top: 1rem;
           width: 100%;
           text-align: center;
           padding: 0.5rem;
-          background: rgba(255,255,255,0.8);
-          color: #999;
+          background: rgba(255,255,255,0.9);
+          backdrop-filter: blur(4px);
+          color: #888;
           font-size: 0.8rem;
-        }
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+          border-top: 1px solid #eee;
         }
       `}</style>
     </div>

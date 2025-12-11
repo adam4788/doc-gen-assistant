@@ -43,24 +43,33 @@ const InputSection = ({
             onChange={handleFileChange}
             ref={fileInputRef}
             className="hidden-input"
-            accept=".png,.jpg,.jpeg,.pdf,.txt"
+            accept="image/*,application/pdf,.txt"
+            capture="environment"
           />
           <div className="upload-placeholder">
             {files && files.length > 0 ? (
-              <div className="file-list">
+              <div className="file-list fade-in">
                 <p><strong>{files.length} file(s) selected:</strong></p>
                 <ul>
                   {files.map((file, index) => (
                     <li key={index}>{file.name}</li>
                   ))}
                 </ul>
-                <span className="change-text">Click to change files</span>
+                <button
+                  className="change-text"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    fileInputRef.current.click();
+                  }}
+                >
+                  Click (or Tap) to change files
+                </button>
               </div>
             ) : (
               <div className="upload-prompt">
-                <span className="icon">📂</span>
-                <p>Click to upload examples</p>
-                <span className="sub-text">Supports PNG, JPG, PDF, TXT</span>
+                <span className="icon">📸</span>
+                <p>Upload or Take Photo</p>
+                <span className="sub-text">PNG, JPG, PDF, TXT</span>
               </div>
             )}
           </div>

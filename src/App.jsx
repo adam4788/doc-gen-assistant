@@ -89,7 +89,10 @@ function App() {
           <DisplaySection
             generatedContent={generatedContent}
             isGenerating={isGenerating}
-            setGeneratedImage={setGeneratedImage}
+            setGeneratedImage={(val) => {
+              setGeneratedImage(val);
+              if (val === null) setGeneratedContent(''); // Handle reset
+            }}
           />
         </div>
       </main>
