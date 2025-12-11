@@ -14,14 +14,14 @@ const fileToBase64 = async (file) => {
     });
 };
 
-export const generateDocument = async (apiKey, files, description) => {
+export const generateDocument = async (apiKey, files, description, modelName = 'gemini-2.5-flash-image') => {
     if (!apiKey) throw new Error("API Key is required");
     if (!files || files.length === 0) throw new Error("At least one file is required");
 
     // Initialize new SDK
     const ai = new GoogleGenAI({ apiKey: apiKey });
 
-    const model = 'gemini-2.5-flash-image';
+    const model = modelName;
     const config = {
         responseModalities: ['IMAGE', 'TEXT'], // Request image output
     };

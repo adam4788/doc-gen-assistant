@@ -12,6 +12,7 @@ function App() {
   const [generatedContent, setGeneratedContent] = useState('');
   const [generatedImage, setGeneratedImage] = useState(null); // Base64 image
   const [isGenerating, setIsGenerating] = useState(false);
+  const [selectedModel, setSelectedModel] = useState('gemini-2.5-flash-image');
 
   const handleGenerate = async () => {
     if (!apiKey) {
@@ -24,7 +25,7 @@ function App() {
     setGeneratedImage(null);
 
     try {
-      const result = await generateDocument(apiKey, files, description);
+      const result = await generateDocument(apiKey, files, description, selectedModel);
       setGeneratedContent(result);
     } catch (error) {
       console.error("Generation failed:", error);
@@ -63,7 +64,7 @@ function App() {
     <div className="app-container">
       <header className="app-header">
         <h1>DocGen Assistant</h1>
-        <p className="subtitle">Powered by Nano Banana Pro (Gemini 2.5 Flash Image)</p>
+        <p className="subtitle">Powered by {selectedModel}</p>
       </header>
 
       <main className="main-grid">
@@ -75,6 +76,8 @@ function App() {
             setDescription={setDescription}
             apiKey={apiKey}
             setApiKey={setApiKey}
+            selectedModel={selectedModel}
+            setSelectedModel={setSelectedModel}
           />
 
           <ControlPanel

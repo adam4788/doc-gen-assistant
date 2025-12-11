@@ -6,7 +6,9 @@ const InputSection = ({
   description,
   setDescription,
   apiKey,
-  setApiKey
+  setApiKey,
+  selectedModel,
+  setSelectedModel
 }) => {
   const fileInputRef = useRef(null);
 
@@ -18,6 +20,35 @@ const InputSection = ({
 
   return (
     <div className="input-section">
+      <div className="input-group">
+        <label htmlFor="model-select">Select AI Model</label>
+        <div className="custom-select-wrapper">
+          <select
+            id="model-select"
+            value={selectedModel}
+            onChange={(e) => setSelectedModel(e.target.value)}
+            className="text-input"
+          >
+            <option value="gemini-3-pro-image-preview">Nano Banana Pro (Gemini 3 Pro) - New</option>
+            <option value="gemini-2.5-flash-image">Nano Banana (Gemini 2.5 Flash)</option>
+            <option value="imagen-4.0-generate-001">Imagen 4</option>
+            <option value="imagen-4.0-ultra-generate-001">Imagen 4 Ultra</option>
+            <option value="imagen-4.0-fast-generate-001">Imagen 4 Fast</option>
+          </select>
+          <div className="model-info-tooltip">
+            {selectedModel === 'gemini-3-pro-image-preview' && (
+              <p>✨ <strong>Nano Banana Pro</strong>: State-of-the-art image generation and editing. <br />Cost: High ($2.00/img). Knowledge cutoff: Jan 2025.</p>
+            )}
+            {selectedModel === 'gemini-2.5-flash-image' && (
+              <p>⚡ <strong>Nano Banana</strong>: Balanced speed and quality.<br />Cost: Low ($0.30/img). Knowledge cutoff: Jun 2025.</p>
+            )}
+            {selectedModel.includes('imagen-4.0') && (
+              <p>🖼️ <strong>Imagen 4 Family</strong>: Specialized Google image generation models. varying quality/speed tiers.</p>
+            )}
+          </div>
+        </div>
+      </div>
+
       <div className="input-group">
         <label htmlFor="api-key">Nano Banana Pro API Key</label>
         <input
@@ -173,6 +204,20 @@ const InputSection = ({
           font-size: 0.8rem;
           color: var(--color-text-light);
           text-align: center;
+        }
+        .model-info-tooltip {
+          margin-top: 0.5rem;
+          background: #f8f9fa;
+          padding: 0.75rem;
+          border-left: 3px solid var(--color-forest-orange);
+          border-radius: 4px;
+          font-size: 0.85rem;
+          color: var(--color-text-main);
+          box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .model-info-tooltip p {
+          margin: 0;
+          line-height: 1.4;
         }
       `}</style>
     </div>
